@@ -16,4 +16,4 @@ jobs:
       - run: npm --no-git-tag-version version ${{ steps.version.outputs.version }}
       - uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.GHPR_PAT }}
+          token: ${{ secrets.NPM_TOKEN }}
