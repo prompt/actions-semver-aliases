@@ -1,0 +1,34 @@
+name: 'Semantic Version (SemVer) Aliases'
+branding:
+  icon: 'tag'
+  color: 'gray-dark'
+description: 'Generate release aliases for a Semantic Version'
+author: 'Samuel Ryan <sam@samryan.co.uk>'
+inputs:
+  version:
+    required: true
+    description: 'Semantic Version to generate aliases for'
+  prefix:
+    required: false
+    description: 'String to prepend to front of each alias'
+    default: 'v'
+  major:
+    required: false
+    description: 'Should the major version (e.g: 1) be included in the aliases?'
+    default: true
+  minor:
+    required: false
+    description: 'Should the minor version (e.g: 1.1) be included in the aliases?'
+    default: true
+  patch:
+    required: false
+    description: 'Should the patch version (e.g: 1.1.1) be included in the aliases?'
+    default: false
+outputs:
+  list:
+    description: 'Newline separated string of aliases'
+  csv:
+    description: 'Comma-separated string of aliases'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
