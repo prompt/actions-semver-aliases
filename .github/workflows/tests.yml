@@ -1,0 +1,95 @@
+name: 'tests'
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run all
+  assert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: major
+        uses: ./
+        with:
+          version: '3.14.1'
+          prefix: v
+          major: true
+          minor: false
+          patch: false
+
+      - id: minor
+        uses: ./
+        with:
+          version: '3.14.1'
+          prefix: v
+          major: false
+          minor: true
+          patch: false
+
+      - id: patch
+        uses: ./
+        with:
+          version: '3.14.1'
+          prefix: v
+          major: false
+          minor: false
+          patch: true
+
+      - id: all
+        uses: ./
+        with:
+          version: '3.14.1'
+          prefix: v
+          major: true
+          minor: true
+          patch: true
+
+      - run: echo "${{ steps.all.outputs.list }}"
+
+      - id: none
+        uses: ./
+        with:
+          version: '3.14.1'
+          prefix: v
+          major: false
+          minor: false
+          patch: false
+
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected: 'v3'
+          actual: ${{ steps.major.outputs.csv }}
+
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected: 'v3.14'
+          actual: ${{ steps.minor.outputs.csv }}
+
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected: 'v3.14.1'
+          actual: ${{ steps.patch.outputs.csv }}
+
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected: 'v3,v3.14,v3.14.1'
+          actual: ${{ steps.all.outputs.csv }}
+
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected: |
+            v3
+            v3.14
+            v3.14.1
+          actual: ${{ steps.all.outputs.list }}
+
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected:
+          actual: ${{ steps.none.outputs.csv }}
