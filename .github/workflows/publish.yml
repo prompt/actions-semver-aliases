@@ -1,0 +1,19 @@
+name: 'Publish Version to NPM'
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - id: version
+        uses: battila7/get-version-action@v2
+      - run: npm --no-git-tag-version version ${{ steps.version.outputs.version }}
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.GHPR_PAT }}
