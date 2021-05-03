@@ -1,6 +1,5 @@
 {
   "name": "@pr-mpt/actions-semver-aliases",
-  "version": "0.1.0",
   "description": "Generate release aliases for a Semantic Version",
   "main": "lib/main.js",
   "scripts": {
