@@ -19,9 +19,9 @@ pr-mpt/actions-semver-aliases@v1
 
 ## Outputs
 
-| ID | Description | Examples |
+| ID | Description | Example |
 | ---- | --------- | -------- |
-| `list` | Newline separated string of aliases | ```v1\nv1.2``` |
+| `list` | Newline separated string of aliases | `v1`<br/>`v1.2` |
 | `csv` | Comma-separated string of aliases | `v1,v1.2` |
 
 [semver]: https://semver.org/
