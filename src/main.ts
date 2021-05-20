@@ -18,7 +18,6 @@ async function run(): Promise<void> {
 
     core.setOutput('csv', aliases.join(','))
     core.setOutput('list', aliases.join('\n'))
-    core.setOutput('example', 'Hello, World!')
   } catch (error) {
     core.setFailed(error.message)
   }
