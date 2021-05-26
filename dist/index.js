@@ -93,7 +93,7 @@ function run() {
             const aliases = aliases_1.generateVersionAliases(version, prefix, {
                 major: core.getBooleanInput('major'),
                 minor: core.getBooleanInput('minor'),
-                patch: core.getBooleanInput('patch'),
+                patch: core.getBooleanInput('patch')
             });
             core.debug(`Aliases generated: ${JSON.stringify(aliases)}`);
             core.setOutput('csv', aliases.join(','));
