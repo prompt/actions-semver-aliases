@@ -9,9 +9,9 @@ async function run(): Promise<void> {
     core.debug(`Generating SemVer aliases for ${version} with prefix ${prefix}`)
 
     const aliases: String[] = generateVersionAliases(version, prefix, {
-      major: core.getInput('major') === 'true',
-      minor: core.getInput('minor') === 'true',
-      patch: core.getInput('patch') === 'true'
+      major: core.getBooleanInput('major'),
+      minor: core.getBooleanInput('minor'),
+      patch: core.getBooleanInput('patch')
     })
 
     core.debug(`Aliases generated: ${JSON.stringify(aliases)}`)
