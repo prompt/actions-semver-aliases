@@ -26,7 +26,7 @@ jobs:
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
-          expected: "v3.14"
+          expected: "v3"
           actual: "${{ steps.major.outputs.csv }}"
 
       - id: minor
