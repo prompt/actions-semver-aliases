@@ -1,19 +1,28 @@
-name: "tests"
+name: "Test Action"
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - "**"
 
 jobs:
-  test:
+  test-unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - run: npm run all
-  assert:
+      - name: Run unit tests
+        run: npm run test
+  test-integration:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+      - name: Install Javascript dependencies using npm
+        if: ${{ github.ref != 'refs/heads/release' }}
+        run: npm install
+      - name: Package action for integration tests
+        if: ${{ github.ref != 'refs/heads/release' }}
+        run: npm run package
       - id: major
         uses: ./
         with:
@@ -21,14 +30,12 @@ jobs:
           major: true
           minor: false
           patch: false
-
-      - name: Major version is provided as alias
+      - name: Test major version is provided as alias
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3"
           actual: "${{ steps.major.outputs.csv }}"
-
       - id: minor
         uses: ./
         with:
@@ -36,14 +43,12 @@ jobs:
           major: false
           minor: true
           patch: false
-
-      - name: Minor version is provided as alias
+      - name: Test minor version is provided as alias
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3.14"
           actual: "${{ steps.minor.outputs.csv }}"
-
       - id: patch
         uses: ./
         with:
@@ -51,14 +56,12 @@ jobs:
           major: false
           minor: false
           patch: true
-
-      - name: Patch version is provided as alias
+      - name: Test patch version is provided as alias
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3.14.1"
           actual: "${{ steps.patch.outputs.csv }}"
-
       - id: all
         uses: ./
         with:
@@ -66,15 +69,13 @@ jobs:
           major: true
           minor: true
           patch: true
-
-      - name: All versions are provided as aliases
+      - name: Test all versions are provided as aliases
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3,v3.14,v3.14.1"
           actual: "${{ steps.all.outputs.csv }}"
-
-      - name: List provides new-line separated aliases
+      - name: Test list provides new-line separated aliases
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
@@ -83,7 +84,6 @@ jobs:
             v3.14
             v3.14.1
           actual: "${{ steps.all.outputs.list }}"
-
       - id: none
         uses: ./
         with:
@@ -91,14 +91,12 @@ jobs:
           major: false
           minor: false
           patch: false
-
-      - name: No versions are provided as aliases
+      - name: Test no versions are provided as aliases
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: ""
           actual: "${{ steps.none.outputs.csv }}"
-
       - id: prefixed
         uses: ./
         with:
@@ -106,8 +104,7 @@ jobs:
           major: true
           minor: true
           patch: true
-
-      - name: All versions are prefixed
+      - name: Test all version aliases are prefixed
         uses: pr-mpt/actions-assert@v1
         with:
           assertion: npm://@assertions/starts-with

@@ -1,4 +1,4 @@
-name: 'Publish Version to NPM'
+name: 'Publish Package to npm'
 
 on:
   push:
