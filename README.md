@@ -4,7 +4,7 @@ A GitHub Action for generating the major and minor aliases of a
 [Semantic Version][semver]: generate `v3` and `v3.14` from `v3.14.1`.
 
 ```
-pr-mpt/actions-semver-aliases@v1
+pr-mpt/actions-semver-aliases@v2
 ```
 
 ## Inputs
