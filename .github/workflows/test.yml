@@ -37,7 +37,7 @@ jobs:
           minor: false
           patch: false
       - name: Test major version is provided as alias
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3"
@@ -50,7 +50,7 @@ jobs:
           minor: true
           patch: false
       - name: Test minor version is provided as alias
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3.14"
@@ -63,7 +63,7 @@ jobs:
           minor: false
           patch: true
       - name: Test patch version is provided as alias
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3.14.1"
@@ -76,13 +76,13 @@ jobs:
           minor: true
           patch: true
       - name: Test all versions are provided as aliases
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: "v3,v3.14,v3.14.1"
           actual: "${{ steps.all.outputs.csv }}"
       - name: Test list provides new-line separated aliases
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: |
@@ -98,7 +98,7 @@ jobs:
           minor: false
           patch: false
       - name: Test no versions are provided as aliases
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/is-equal
           expected: ""
@@ -111,7 +111,7 @@ jobs:
           minor: true
           patch: true
       - name: Test all version aliases are prefixed
-        uses: pr-mpt/actions-assert@v1
+        uses: prompt/actions-assert@v1
         with:
           assertion: npm://@assertions/starts-with
           each: true
